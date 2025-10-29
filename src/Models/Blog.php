@@ -9,9 +9,12 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Sndpbag\AdminPanel\Models\User;
 use Sndpbag\Blog\Models\BlogLike;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Blog extends Model
 {
+    use SoftDeletes;
+    
         protected $fillable = [
     'title',
     'slug',

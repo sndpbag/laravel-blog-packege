@@ -556,4 +556,42 @@ public function toggleStatus(Blog $blog)
 
         return response()->json(['error' => 'Image upload failed.'], 400);
     }
+
+
+
+    public function trashed(Request $request): View
+{
+    $blogs = Blog::onlyTrashed()
+        ->with(['category', 'author'])
+        ->latest('deleted_at')
+        ->paginate(10);
+
+    return view('blog::dashboard.blogs.trashed', compact('blogs'));
+}
+
+/**
+ * Restore the specified soft-deleted blog post.
+ */
+public function restore($id): RedirectResponse
+{
+    $blog = Blog::withTrashed()->findOrFail($id);
+    $blog->restore();
+
+    return redirect()->route('blog.trashed')->with('success', 'Blog post restored successfully!');
+}
+
+/**
+ * Permanently delete the specified blog post.
+ */
+public function forceDelete($id): RedirectResponse
+{
+    $blog = Blog::withTrashed()->findOrFail($id);
+    // ইমেজ সহ পার্মানেন্ট ডিলিট করা হচ্ছে
+    if ($blog->image && Storage::disk('public')->exists($blog->image)) {
+        Storage::disk('public')->delete($blog->image);
+    }
+    $blog->forceDelete();
+
+    return redirect()->route('blog.trashed')->with('success', 'Blog post permanently deleted!');
+}
 }

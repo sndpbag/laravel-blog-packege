@@ -294,4 +294,5 @@ class BlogController extends Controller
 
         return redirect()->back()->with('success', 'Reply posted successfully!');
     }
+    
 }

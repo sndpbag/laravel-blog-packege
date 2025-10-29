@@ -18,12 +18,13 @@ return new class extends Migration
             $table->text('body');
             $table->unsignedBigInteger('parent_id')->nullable(); // রিপ্লাই এর জন্য
             $table->enum('status', ['pending', 'approved', 'rejected'])->default('pending');
-          
+          $table->softDeletes();
 
             // Foreign keys
             $table->foreign('blog_id')->references('id')->on('blogs')->onDelete('cascade');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('set null');
             $table->foreign('parent_id')->references('id')->on('comments')->onDelete('cascade');
+
             $table->timestamps();
         });
     }
