@@ -702,13 +702,13 @@
                             <div class="flex items-center justify-center space-x-4 text-sm">
                                 <div class="text-center">
                                     <p class="font-bold text-2xl">
-                                        {{ \Sndpbag\Blog\Models\Blog::where('author_id', $blog->author_id)->count() }}</p>
+                                        {{ \Sndpbag\Blog\Models\Blog::where('author_id', $blog->author_id)->where('author_type', $blog->author_type)->count() }}</p>
                                     <p class="text-blue-100 text-xs">Posts</p>
                                 </div>
                                 <div class="w-px h-12 bg-white/30"></div>
                                 <div class="text-center">
                                     <p class="font-bold text-2xl">
-                                        {{ \Sndpbag\Blog\Models\Blog::where('author_id', $blog->author_id)->sum('views') }}
+                                        {{ \Sndpbag\Blog\Models\Blog::where('author_id', $blog->author_id)->where('author_type', $blog->author_type)->sum('views') }}
                                     </p>
                                     <p class="text-blue-100 text-xs">Views</p>
                                 </div>
