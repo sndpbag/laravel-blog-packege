@@ -15,7 +15,7 @@ Route::middleware(['web', 'auth'])->prefix('dashboard')->group(function () {
 
     // Blog Posts Resource (e.g., /dashboard/blog, /dashboard/blog/create)
     Route::resource('blog', BlogController::class)->names('blog');
-
+Route::patch('/blog/{blog}/toggle-status', [BlogController::class, 'toggleStatus'])->name('blog.toggle-status');
      Route::post('/dashboard/blogs/upload-image', [BlogController::class, 'uploadContentImage'])->name('blog.uploadContentImage');
   Route::post('/blog/{blog}/increment-view', [BlogController::class, 'incrementView'])->name('blog.increment-view');
     Route::post('/blog/{blog}/like', [BlogController::class, 'like'])->name('blog.like');
