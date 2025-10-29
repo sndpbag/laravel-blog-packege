@@ -472,6 +472,53 @@ public function comment(Request $request, Blog $blog)
     }
 
 
+
+    /**
+ * Toggle the status of the specified blog.
+ */
+public function toggleStatus(Blog $blog)
+{
+    try {
+        // বর্তমান স্ট্যাটাস চেক করা
+        $oldStatus = $blog->status;
+        $newStatus = $oldStatus === 'published' ? 'draft' : 'published';
+
+        // স্ট্যাটাস আপডেট করা
+        $blog->update(['status' => $newStatus]);
+
+        // সফল লগ রাখা
+        Log::info('Blog status toggled successfully', [
+            'blog_id' => $blog->id,
+            'old_status' => $oldStatus,
+            'new_status' => $newStatus,
+            'updated_by' => auth()->id() ?? 'system'
+        ]);
+
+        // সফল রেসপন্স পাঠানো
+        return response()->json([
+            'success' => true,
+            'message' => 'Blog status updated to ' . ucfirst($newStatus) . ' successfully!',
+            'new_status' => $newStatus
+        ]);
+
+    } catch (\Exception $e) {
+        // যদি কোনো Error হয়, সেটা লগ করা
+        Log::error('Failed to toggle blog status', [
+            'blog_id' => $blog->id ?? null,
+            'error_message' => $e->getMessage(),
+            'trace' => $e->getTraceAsString(),
+            'updated_by' => auth()->id() ?? 'system'
+        ]);
+
+        // Error response পাঠানো
+        return response()->json([
+            'success' => false,
+            'message' => 'Something went wrong while updating blog status!'
+        ], 500);
+    }
+}
+
+
     /**
      * Remove the specified resource from storage.
      */

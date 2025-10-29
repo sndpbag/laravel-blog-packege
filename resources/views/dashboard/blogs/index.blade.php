@@ -1026,7 +1026,44 @@
                  closeAllModals();
                  document.getElementById('bulkActionsMenu').classList.add('hidden');
              }
+
+
+
+             
          });
+
+
+         function toggleStatus(blogId) {
+    if (confirm('আপনি কি নিশ্চিত যে এই পোস্টটির স্ট্যাটাস পরিবর্তন করতে চান?')) {
+        // নতুন Route এর সাথে সামঞ্জস্য রেখে URL এবং Method পরিবর্তন করা হলো
+        fetch(`{{ route('blog.toggle-status', ['blog' => 'BLOG_ID_PLACEHOLDER']) }}`.replace('BLOG_ID_PLACEHOLDER', blogId), {
+            method: 'POST', // আমরা PATCH রিকোয়েস্ট পাঠাবো, কিন্তু fetch-এর জন্য POST ব্যবহার করে _method: PATCH বডিতে পাঠাবো
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')?.getAttribute(
+                    'content') || ''
+            },
+            body: JSON.stringify({
+                // এই লাইনটি Laravel-কে বলে দেবে যে এটি আসলে একটি PATCH রিকোয়েস্ট
+                _method: 'PATCH' 
+            })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                showNotification(data.message, 'success');
+                // স্ট্যাটাস পরিবর্তন হওয়ার পরে পেইজ রিলোড করুন
+                location.reload(); 
+            } else {
+                showNotification(data.message || 'স্ট্যাটাস আপডেট ব্যর্থ হয়েছে', 'error');
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            showNotification('স্ট্যাটাস আপডেট করার সময় একটি ত্রুটি হয়েছে', 'error');
+        });
+    }
+}
 
          console.log('Blog Index initialization complete');
      </script>
