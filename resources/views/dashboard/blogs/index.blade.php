@@ -1046,7 +1046,7 @@
 
 
          function toggleStatus(blogId) {
-             if (confirm('আপনি কি নিশ্চিত যে এই পোস্টটির স্ট্যাটাস পরিবর্তন করতে চান?')) {
+             if (confirm('Are you sure you want to change the status of this post?')) {
                  // নতুন Route এর সাথে সামঞ্জস্য রেখে URL এবং Method পরিবর্তন করা হলো
                  fetch(`{{ route('blog.toggle-status', ['blog' => 'BLOG_ID_PLACEHOLDER']) }}`.replace('BLOG_ID_PLACEHOLDER',
                          blogId), {
@@ -1068,12 +1068,12 @@
                              // স্ট্যাটাস পরিবর্তন হওয়ার পরে পেইজ রিলোড করুন
                              location.reload();
                          } else {
-                             showNotification(data.message || 'স্ট্যাটাস আপডেট ব্যর্থ হয়েছে', 'error');
+                             showNotification(data.message || 'Status update failed.', 'error');
                          }
                      })
                      .catch(error => {
                          console.error('Error:', error);
-                         showNotification('স্ট্যাটাস আপডেট করার সময় একটি ত্রুটি হয়েছে', 'error');
+                         showNotification('An error occurred while updating the status.', 'error');
                      });
              }
          }
