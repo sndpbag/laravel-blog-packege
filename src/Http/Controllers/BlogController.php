@@ -525,9 +525,7 @@ public function toggleStatus(Blog $blog)
     public function destroy(Blog $blog): RedirectResponse
     {
         try {
-            if ($blog->image && Storage::disk('public')->exists($blog->image)) {
-                Storage::disk('public')->delete($blog->image);
-            }
+             
             $blog->delete();
             return redirect()->route('blog.index')->with('success', 'Blog post deleted successfully!');
         } catch (\Exception $e) {
