@@ -91,11 +91,49 @@ class CommentController extends Controller
     {
         try {
             $comment->delete();
-            return redirect()->route('comments.index')->with('success', 'Comment deleted successfully!');
+            return redirect()->route('comments.index')->with('success', 'Comment moved to trash successfully!');
         } catch (\Exception $e) {
             Log::error("Error deleting comment: " . $e->getMessage());
             return redirect()->route('comments.index')->with('error', 'Failed to delete comment.');
         }
     }
   
+
+    /**
+     * Display a listing of the trashed resources.
+     */
+    public function trashed(Request $request)
+    {
+        $query = Comment::onlyTrashed() // শুধু ট্র্যাশড আইটেম দেখাবে
+                   ->with(['user', 'blog']) 
+                   ->latest('deleted_at'); 
+        
+        $comments = $query->paginate(15); 
+
+        return view('blog::dashboard.comments.trashed', compact('comments'));
+    }
+
+    /**
+     * Restore the specified soft-deleted comment.
+     */
+    public function restore($id)
+    {
+        $comment = Comment::withTrashed()->findOrFail($id);
+        $comment->restore();
+        
+        return redirect()->route('comments.trashed')->with('success', 'Comment restored successfully!');
+    }
+
+    /**
+     * Permanently delete the specified comment.
+     */
+    public function forceDelete($id)
+    {
+        $comment = Comment::withTrashed()->findOrFail($id);
+        
+        // নোট: কমেন্ট ডিলিট করলে এর রিপ্লাইগুলোও স্বয়ংক্রিয়ভাবে ডিলিট হয়ে যাবে যদি parent_id ফরেন কি Cascade এ সেট করা থাকে।
+        $comment->forceDelete();
+        
+        return redirect()->route('comments.trashed')->with('success', 'Comment permanently deleted!');
+    }
 }

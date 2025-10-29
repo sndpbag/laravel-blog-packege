@@ -54,6 +54,11 @@ Route::patch('/blog/{blog}/toggle-status', [BlogController::class, 'toggleStatus
         Route::patch('/{comment}/approve', [DashboardCommentController::class, 'approve'])->name('approve'); // Approve করার রুট
         Route::patch('/{comment}/reject', [DashboardCommentController::class, 'reject'])->name('reject'); // Reject করার রুট
         Route::delete('/{comment}', [DashboardCommentController::class, 'destroy'])->name('destroy'); // ডিলিট করার রুট
+
+        Route::get('/trashed', [DashboardCommentController::class, 'trashed'])->name('trashed');
+    Route::post('/{id}/restore', [DashboardCommentController::class, 'restore'])->name('restore');
+    Route::delete('/{id}/force-delete', [DashboardCommentController::class, 'forceDelete'])->name('force-delete');
+    
     });
 });
 
