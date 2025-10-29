@@ -22,7 +22,7 @@ class BlogController extends Controller
      */
     public function index(Request $request)
     {
-        $query = Blog::with(['category', 'author']);
+        $query = Blog::with(['category', 'author'])->withCount('likes');
 
         // Search filter
         if ($request->filled('search')) {
