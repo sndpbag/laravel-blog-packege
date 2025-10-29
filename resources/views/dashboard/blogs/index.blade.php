@@ -167,7 +167,7 @@
                              </button>
                              {{-- create blog --}}
 
-                             <a  href="{{route('blog.create')}}" style="background-color: var(--primary);"
+                             <a href="{{ route('blog.create') }}" style="background-color: var(--primary);"
                                  class="flex items-center px-3 py-2 text-sm font-medium   text-white border border-gray-300 rounded-lg hover:bg-gray-200 transition-colors">
 
                                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
@@ -350,8 +350,9 @@
                                                          $authorName = $blog->author->full_name ?? 'Unknown Member';
                                                          $authorType = '[Member]';
                                                      } elseif (
-                                                        //  $blog->author_type === \App\Models\User::class &&
-                                                         $blog->author_type === \Sndpbag\AdminPanel\Models\User::class &&
+                                                         //  $blog->author_type === \App\Models\User::class &&
+                                                         $blog->author_type ===
+                                                             \Sndpbag\AdminPanel\Models\User::class &&
                                                          $blog->author
                                                      ) {
                                                          $authorName = $blog->author->name ?? 'Unknown Admin';
@@ -367,14 +368,25 @@
                                          </div>
                                      </div>
                                  </td>
+
                                  <td class="px-6 py-4 whitespace-nowrap">
                                      <div class="space-y-2">
-                                         <!-- Status -->
                                          <div>
+                                             @php
+                                                 // সমস্যাটি হলো: $blog->status এর ভ্যালু 'published' অথবা 'draft' (string)
+                                                 // তাই, সরাসরি if($blog->status) লিখলে 'draft' হলেও true রিটার্ন করে।
+                                                 // সমাধান: স্ট্রিং ভ্যালু 'published' এর সাথে সরাসরি তুলনা করা হচ্ছে।
+                                                 $isPublished = $blog->status === 'published';
+                                                 $statusText = $isPublished ? 'Published' : 'Draft';
+                                                 $statusClass = $isPublished
+                                                     ? 'bg-green-100 text-green-800 hover:bg-green-200'
+                                                     : 'bg-yellow-100 text-yellow-800 hover:bg-yellow-200';
+                                             @endphp
+
                                              <button onclick="toggleStatus({{ $blog->id }})"
-                                                 class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium transition-colors {{ $blog->status ? 'bg-green-100 text-green-800 hover:bg-green-200' : 'bg-yellow-100 text-yellow-800 hover:bg-yellow-200' }}">
+                                                 class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium transition-colors {{ $statusClass }}">
                                                  <svg class="w-3 h-3 mr-1" fill="currentColor" viewBox="0 0 20 20">
-                                                     @if ($blog->status)
+                                                     @if ($isPublished)
                                                          <path fill-rule="evenodd"
                                                              d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
                                                              clip-rule="evenodd"></path>
@@ -384,10 +396,9 @@
                                                              clip-rule="evenodd"></path>
                                                      @endif
                                                  </svg>
-                                                 {{ $blog->status ? 'Published' : 'Draft' }}
+                                                 {{ $statusText }}
                                              </button>
                                          </div>
-                                         <!-- Stats -->
                                          <div class="flex items-center space-x-4 text-xs text-gray-500">
                                              <div class="flex items-center">
                                                  <svg class="w-3 h-3 mr-1" fill="none" stroke="currentColor"
@@ -402,6 +413,7 @@
                                          </div>
                                      </div>
                                  </td>
+
                                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
                                      <div class="space-y-1">
                                          <div>
@@ -441,7 +453,7 @@
                                                      viewBox="0 0 24 24">
                                                      <path stroke-linecap="round" stroke-linejoin="round"
                                                          stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2
-                         0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
+                                 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
                                                  </svg>
                                              </a>
                                          @else
@@ -452,8 +464,8 @@
                                                      viewBox="0 0 24 24">
                                                      <path stroke-linecap="round" stroke-linejoin="round"
                                                          stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2
-                         0 002-2v-5m-1.414-9.414a2 2
-                         0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
+                                 0 002-2v-5m-1.414-9.414a2 2
+                                 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
                                                  </svg>
                                              </span>
                                          @endif
@@ -604,7 +616,7 @@
      </div>
  @endsection
 
-@push('styles')
+ @push('styles')
      <style>
          :root {
              --primary-blue: #00499b;
@@ -752,9 +764,9 @@
              }
          }
      </style>
-@endpush
+ @endpush
 
-@push('scripts')
+ @push('scripts')
      <script>
          let deleteId = null;
          let selectedBlogs = [];
@@ -1029,42 +1041,43 @@
 
 
 
-             
+
          });
 
 
          function toggleStatus(blogId) {
-    if (confirm('আপনি কি নিশ্চিত যে এই পোস্টটির স্ট্যাটাস পরিবর্তন করতে চান?')) {
-        // নতুন Route এর সাথে সামঞ্জস্য রেখে URL এবং Method পরিবর্তন করা হলো
-        fetch(`{{ route('blog.toggle-status', ['blog' => 'BLOG_ID_PLACEHOLDER']) }}`.replace('BLOG_ID_PLACEHOLDER', blogId), {
-            method: 'POST', // আমরা PATCH রিকোয়েস্ট পাঠাবো, কিন্তু fetch-এর জন্য POST ব্যবহার করে _method: PATCH বডিতে পাঠাবো
-            headers: {
-                'Content-Type': 'application/json',
-                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')?.getAttribute(
-                    'content') || ''
-            },
-            body: JSON.stringify({
-                // এই লাইনটি Laravel-কে বলে দেবে যে এটি আসলে একটি PATCH রিকোয়েস্ট
-                _method: 'PATCH' 
-            })
-        })
-        .then(response => response.json())
-        .then(data => {
-            if (data.success) {
-                showNotification(data.message, 'success');
-                // স্ট্যাটাস পরিবর্তন হওয়ার পরে পেইজ রিলোড করুন
-                location.reload(); 
-            } else {
-                showNotification(data.message || 'স্ট্যাটাস আপডেট ব্যর্থ হয়েছে', 'error');
-            }
-        })
-        .catch(error => {
-            console.error('Error:', error);
-            showNotification('স্ট্যাটাস আপডেট করার সময় একটি ত্রুটি হয়েছে', 'error');
-        });
-    }
-}
+             if (confirm('আপনি কি নিশ্চিত যে এই পোস্টটির স্ট্যাটাস পরিবর্তন করতে চান?')) {
+                 // নতুন Route এর সাথে সামঞ্জস্য রেখে URL এবং Method পরিবর্তন করা হলো
+                 fetch(`{{ route('blog.toggle-status', ['blog' => 'BLOG_ID_PLACEHOLDER']) }}`.replace('BLOG_ID_PLACEHOLDER',
+                         blogId), {
+                         method: 'POST', // আমরা PATCH রিকোয়েস্ট পাঠাবো, কিন্তু fetch-এর জন্য POST ব্যবহার করে _method: PATCH বডিতে পাঠাবো
+                         headers: {
+                             'Content-Type': 'application/json',
+                             'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')?.getAttribute(
+                                 'content') || ''
+                         },
+                         body: JSON.stringify({
+                             // এই লাইনটি Laravel-কে বলে দেবে যে এটি আসলে একটি PATCH রিকোয়েস্ট
+                             _method: 'PATCH'
+                         })
+                     })
+                     .then(response => response.json())
+                     .then(data => {
+                         if (data.success) {
+                             showNotification(data.message, 'success');
+                             // স্ট্যাটাস পরিবর্তন হওয়ার পরে পেইজ রিলোড করুন
+                             location.reload();
+                         } else {
+                             showNotification(data.message || 'স্ট্যাটাস আপডেট ব্যর্থ হয়েছে', 'error');
+                         }
+                     })
+                     .catch(error => {
+                         console.error('Error:', error);
+                         showNotification('স্ট্যাটাস আপডেট করার সময় একটি ত্রুটি হয়েছে', 'error');
+                     });
+             }
+         }
 
          console.log('Blog Index initialization complete');
      </script>
-@push('scripts')
+     @push('scripts')
