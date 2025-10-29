@@ -1762,18 +1762,18 @@
 
 
         // Custom Prompt Modal with an input field
-function showPromptModal(title, message, onConfirm) {
-    let savedRange = null;
-    if (window.getSelection) {
-        const sel = window.getSelection();
-        if (sel.getRangeAt && sel.rangeCount) {
-            savedRange = sel.getRangeAt(0);
-        }
-    }
+        function showPromptModal(title, message, onConfirm) {
+            let savedRange = null;
+            if (window.getSelection) {
+                const sel = window.getSelection();
+                if (sel.getRangeAt && sel.rangeCount) {
+                    savedRange = sel.getRangeAt(0);
+                }
+            }
 
-    const modal = document.createElement('div');
-    modal.className = 'fixed inset-0 bg-gray-600 bg-opacity-50 flex items-center justify-center z-[9999]';
-    modal.innerHTML = `
+            const modal = document.createElement('div');
+            modal.className = 'fixed inset-0 bg-gray-600 bg-opacity-50 flex items-center justify-center z-[9999]';
+            modal.innerHTML = `
         <div class="bg-white rounded-lg shadow-xl p-6 max-w-sm mx-auto" style="animation: scaleIn 0.2s ease-out;">
             <h3 class="text-lg font-semibold text-gray-900 mb-4">${title}</h3>
             <p class="text-gray-700 mb-2">${message}</p>
@@ -1784,33 +1784,33 @@ function showPromptModal(title, message, onConfirm) {
             </div>
         </div>
     `;
-    document.body.appendChild(modal);
+            document.body.appendChild(modal);
 
-    const inputField = document.getElementById('promptInput');
-    inputField.focus();
-    
-    const closeModal = () => modal.remove();
+            const inputField = document.getElementById('promptInput');
+            inputField.focus();
 
-    const confirmAction = () => {
-        if (savedRange && window.getSelection) {
-            const sel = window.getSelection();
-            sel.removeAllRanges();
-            sel.addRange(savedRange);
+            const closeModal = () => modal.remove();
+
+            const confirmAction = () => {
+                if (savedRange && window.getSelection) {
+                    const sel = window.getSelection();
+                    sel.removeAllRanges();
+                    sel.addRange(savedRange);
+                }
+                onConfirm(inputField.value);
+                closeModal();
+            };
+
+            inputField.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter') {
+                    e.preventDefault();
+                    confirmAction();
+                }
+            });
+
+            document.getElementById('cancelBtn').addEventListener('click', closeModal);
+            document.getElementById('confirmBtn').addEventListener('click', confirmAction);
         }
-        onConfirm(inputField.value);
-        closeModal();
-    };
-
-    inputField.addEventListener('keydown', (e) => {
-        if (e.key === 'Enter') {
-            e.preventDefault();
-            confirmAction();
-        }
-    });
-
-    document.getElementById('cancelBtn').addEventListener('click', closeModal);
-    document.getElementById('confirmBtn').addEventListener('click', confirmAction);
-}
 
         window.showNotification = showNotification; // Make globally accessible
 
@@ -1899,7 +1899,7 @@ function showPromptModal(title, message, onConfirm) {
             if (size) formatText('fontSize', size);
         };
 
-     window.insertLink = function() {
+        window.insertLink = function() {
             showPromptModal('Insert Link', 'Enter URL:', (url) => {
                 if (url) {
                     // Automatically add https:// if not present for robustness
@@ -2511,19 +2511,41 @@ function showPromptModal(title, message, onConfirm) {
         };
 
         // Function to set author_id and author_type based on selection
+        // window.setAuthorType = function(memberId = null) {
+        //     const authorIdHidden = document.querySelector('input[name="author_id"]');
+        //     const authorTypeHidden = document.querySelector('input[name="author_type"]');
+
+        //     if (authorIdHidden && authorTypeHidden) {
+        //         if (memberId) {
+
+        //             authorIdHidden.value = memberId;
+        //             authorTypeHidden.value = 'App\\Models\\User';  
+        //         } else {
+
+        //             authorIdHidden.value = '{{ auth()->id() }}';
+        //             authorTypeHidden.value = 'App\\Models\\User';  
+        //         }
+        //     }
+        // };
+
+
         window.setAuthorType = function(memberId = null) {
             const authorIdHidden = document.querySelector('input[name="author_id"]');
             const authorTypeHidden = document.querySelector('input[name="author_type"]');
 
+            // PHP-এর মাধ্যমে সঠিক মডেল ক্লাসটি জাভাস্ক্রিপ্টে ইনজেক্ট করা হলো
+            const modelClass = '{{ addslashes(\Sndpbag\AdminPanel\Models\User::class) }}';
+            // এই addslashes() ফাংশনটি জাভাস্ক্রিপ্ট স্ট্রিং-এ \s গুলোকে ঠিকমতো escape করবে।
+
             if (authorIdHidden && authorTypeHidden) {
                 if (memberId) {
-                    // If a member is selected, set author_id to memberId and type to User
+                    // যদি মেম্বার সিলেক্ট করা হয়
                     authorIdHidden.value = memberId;
-                    authorTypeHidden.value = 'App\\Models\\User'; // Assuming members are also Users
+                    authorTypeHidden.value = modelClass; // সঠিক মডেল ক্লাস ব্যবহার করা হলো
                 } else {
-                    // If "None - Admin Post" is selected (or no member selected), default to current authenticated user
+                    // যদি লগইন করা অ্যাডমিন থাকে
                     authorIdHidden.value = '{{ auth()->id() }}';
-                    authorTypeHidden.value = 'App\\Models\\User'; // Assuming authenticated users are also Users
+                    authorTypeHidden.value = modelClass; // সঠিক মডেল ক্লাস ব্যবহার করা হলো
                 }
             }
         };
