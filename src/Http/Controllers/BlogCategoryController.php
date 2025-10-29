@@ -181,7 +181,7 @@ class BlogCategoryController extends Controller
 
         return redirect()
             ->route('blog-categories.index')
-            ->with('success', 'Blog category deleted successfully!');
+            ->with('success', 'Blog Category moved to trash successfully!');
     }
 
     /**

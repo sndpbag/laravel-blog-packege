@@ -29,7 +29,7 @@ Route::patch('/blog/{blog}/toggle-status', [BlogController::class, 'toggleStatus
 
 
     // Blog Categories Resource (e.g., /dashboard/blog-categories)
-    Route::resource('blog-categories', BlogCategoryController::class);
+  
 
     // Image Upload from Editor
     Route::post('/blogs/upload-image', [BlogController::class, 'uploadContentImage'])->name('blogs.uploadContentImage');
@@ -45,6 +45,8 @@ Route::patch('/blog/{blog}/toggle-status', [BlogController::class, 'toggleStatus
         ->name('blog-categories.restore');
     Route::delete('blog-categories/{id}/force-delete', [BlogCategoryController::class, 'forceDelete'])
         ->name('blog-categories.force-delete');
+
+          Route::resource('blog-categories', BlogCategoryController::class);
 
 
         Route::prefix('comments')->name('comments.')->group(function () {

@@ -3,6 +3,9 @@
 @section('title', 'Blog Categories - Dashboard')
 @section('page-title', 'Blog Management')
 
+
+
+
 @section('content')
     <div class="flex items-center gap-2 mb-6 text-sm">
         <a href="{{ route('dashboard') }}" class="text-gray-600 dark:text-gray-400 hover:text-indigo-600 dark:hover:text-indigo-400">Home</a>
