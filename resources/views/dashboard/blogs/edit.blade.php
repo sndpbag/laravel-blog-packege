@@ -242,214 +242,63 @@
                 </div>
 
                 <!-- Content Editor Section -->
-                <div
-                    class="form-section bg-white rounded-xl p-6 shadow-sm border border-gray-200 transition-all duration-300 hover:shadow-lg">
-                    <div class="flex items-center mb-6">
-                        <div class="w-10 h-10 rounded-lg flex items-center justify-center mr-4"
-                            style="background-color: rgba(251, 191, 36, 0.1);">
-                            <svg class="w-5 h-5" style="color: #fbbf24;" fill="none" stroke="currentColor"
-                                viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z">
-                                </path>
-                            </svg>
-                        </div>
-                        <h3 class="text-lg font-semibold text-gray-800">Blog Content</h3>
-                    </div>
+<div class="form-section bg-white rounded-xl p-6 shadow-sm border border-gray-200 transition-all duration-300 hover:shadow-lg">
+    <div class="flex items-center mb-6">
+        <div class="w-10 h-10 rounded-lg flex items-center justify-center mr-4"
+            style="background-color: rgba(251, 191, 36, 0.1);">
+            <svg class="w-5 h-5" style="color: #fbbf24;" fill="none" stroke="currentColor"
+                viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z">
+                </path>
+            </svg>
+        </div>
+        <h3 class="text-lg font-semibold text-gray-800">Blog Content</h3>
+    </div>
 
-                    <div class="space-y-2">
-                        <label for="content" class="flex items-center text-sm font-medium text-gray-700">
-                            <svg class="w-4 h-4 mr-2" style="color: #fbbf24;" fill="none" stroke="currentColor"
-                                viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z">
-                                </path>
-                            </svg>
-                            Content <span class="text-red-500">*</span>
-                        </label>
-                        
-                        <!-- Advanced Rich Text Editor Toolbar -->
-                        <div class="bg-gray-100 border border-gray-300 rounded-t-lg p-3">
-                            <!-- Row 1: Text Formatting -->
-                            <div class="flex flex-wrap gap-1 mb-2">
-                                <button type="button" onclick="formatText('bold')" class="toolbar-btn" title="Bold">
-                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M6 4h8a4 4 0 014 4 4 4 0 01-4 4H6z"></path>
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M6 12h9a4 4 0 014 4 4 4 0 01-4 4H6z"></path>
-                                    </svg>
-                                </button>
-                                <button type="button" onclick="formatText('italic')" class="toolbar-btn" title="Italic">
-                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 4L6 20m8-16l-4 16">
-                                        </path>
-                                    </svg>
-                                </button>
-                                <button type="button" onclick="formatText('underline')" class="toolbar-btn" title="Underline">
-                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path>
-                                    </svg>
-                                </button>
-                                <button type="button" onclick="formatText('strikeThrough')" class="toolbar-btn" title="Strikethrough">
-                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 8h12M6 16h12M8 12h8">
-                                        </path>
-                                    </svg>
-                                </button>
+    <div class="space-y-2">
+        <label for="editor" class="flex items-center text-sm font-medium text-gray-700">
+            <svg class="w-4 h-4 mr-2" style="color: #fbbf24;" fill="none" stroke="currentColor"
+                viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z">
+                </path>
+            </svg>
+            Content <span class="text-red-500">*</span>
+        </label>
 
-                                <div class="border-l border-gray-400 mx-1"></div>
+        <!-- CKEditor 5 Container -->
+        <div id="editor" style="min-height: 400px;">{!! old('content', $blog->content) !!}</div>
+        <textarea id="content" name="content" class="hidden" required>{{ old('content', $blog->content) }}</textarea>
 
-                                <!-- Font Size -->
-                                <select onchange="changeFontSize(this.value)" class="text-xs px-2 py-1 border rounded bg-white">
-                                    <option value="">Size</option>
-                                    <option value="1">Small</option>
-                                    <option value="3">Normal</option>
-                                    <option value="4">Medium</option>
-                                    <option value="5">Large</option>
-                                    <option value="6">X-Large</option>
-                                    <option value="7">XX-Large</option>
-                                </select>
+        <!-- Editor Helper Text -->
+        <div class="flex flex-col sm:flex-row sm:justify-between text-xs text-gray-500 mt-2 space-y-1 sm:space-y-0">
+            <div class="flex items-center space-x-4">
+                <span>📝 Rich text formatting enabled</span>
+                <span>🖼️ Images supported</span>
+                <span>🎬 Video embeds supported</span>
+                <span>📊 Tables supported</span>
+            </div>
+            <div class="flex items-center space-x-2">
+                <span>Word count: <span id="wordCount">0</span></span>
+                <span>|</span>
+                <span>Characters: <span id="charCount">0</span></span>
+            </div>
+        </div>
 
-                                <!-- Text Colors -->
-                                <div class="relative">
-                                    <button type="button" onclick="toggleColorPicker()" class="toolbar-btn" title="Text Color">
-                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zM7 3H5a2 2 0 00-2 2v12a4 4 0 004 4h2a2 2 0 002-2V5a2 2 0 00-2-2z">
-                                            </path>
-                                        </svg>
-                                    </button>
-                                    <div id="colorPicker" class="hidden absolute top-8 left-0 bg-white border rounded-lg p-2 z-10 shadow-lg">
-                                        <div class="grid grid-cols-6 gap-1">
-                                            <button type="button" onclick="setTextColor('#000000')" class="w-6 h-6 rounded border"
-                                                style="background-color: #000000" title="Black"></button>
-                                            <button type="button" onclick="setTextColor('#FF0000')" class="w-6 h-6 rounded border"
-                                                style="background-color: #FF0000" title="Red"></button>
-                                            <button type="button" onclick="setTextColor('#00FF00')" class="w-6 h-6 rounded border"
-                                                style="background-color: #00FF00" title="Green"></button>
-                                            <button type="button" onclick="setTextColor('#0000FF')" class="w-6 h-6 rounded border"
-                                                style="background-color: #0000FF" title="Blue"></button>
-                                            <button type="button" onclick="setTextColor('#FFFF00')" class="w-6 h-6 rounded border"
-                                                style="background-color: #FFFF00" title="Yellow"></button>
-                                            <button type="button" onclick="setTextColor('#FF00FF')" class="w-6 h-6 rounded border"
-                                                style="background-color: #FF00FF" title="Magenta"></button>
-                                        </div>
-                                    </div>
-                                </div>
+        @error('content')
+            <p class="text-red-500 text-sm mt-1 flex items-center">
+                <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                </svg>
+                {{ $message }}
+            </p>
+        @enderror
+    </div>
+</div>
+               
 
-                                <!-- Background Color -->
-                                <div class="relative">
-                                    <button type="button" onclick="toggleBgColorPicker()" class="toolbar-btn" title="Background Color">
-                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4z"></path>
-                                        </svg>
-                                    </button>
-                                    <div id="bgColorPicker" class="hidden absolute top-8 left-0 bg-white border rounded-lg p-2 z-10 shadow-lg">
-                                        <div class="grid grid-cols-6 gap-1">
-                                            <button type="button" onclick="setBgColor('transparent')" class="w-6 h-6 rounded border bg-white" title="No Background"></button>
-                                            <button type="button" onclick="setBgColor('#FFFF00')" class="w-6 h-6 rounded border" style="background-color: #FFFF00" title="Yellow"></button>
-                                            <button type="button" onclick="setBgColor('#00FF00')" class="w-6 h-6 rounded border" style="background-color: #00FF00" title="Green"></button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- Row 2: Structure -->
-                            <div class="flex flex-wrap gap-1 mb-2">
-                                <select onchange="formatHeading(this.value)" class="text-xs px-2 py-1 border rounded bg-white">
-                                    <option value="">Heading</option>
-                                    <option value="H1">Heading 1</option>
-                                    <option value="H2">Heading 2</option>
-                                    <option value="H3">Heading 3</option>
-                                </select>
-
-                                <div class="border-l border-gray-400 mx-1"></div>
-
-                                <button type="button" onclick="formatText('insertUnorderedList')" class="toolbar-btn" title="Bullet List">
-                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
-                                </button>
-                                <button type="button" onclick="formatText('insertOrderedList')" class="toolbar-btn" title="Numbered List">
-                                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
-                                </button>
-
-                                <div class="border-l border-gray-400 mx-1"></div>
-                                
-                                <button type="button" onclick="formatText('justifyLeft')" class="toolbar-btn" title="Align Left">
-                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h8m-8 6h16"></path></svg>
-                                </button>
-                                <button type="button" onclick="formatText('justifyCenter')" class="toolbar-btn" title="Align Center">
-                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M8 12h8M4 18h16"></path></svg>
-                                </button>
-                                <button type="button" onclick="formatText('justifyRight')" class="toolbar-btn" title="Align Right">
-                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 6H4m16 6h-8m8 6H4"></path></svg>
-                                </button>
-                            </div>
-
-                            <!-- Row 3: Media & Advanced -->
-                            <div class="flex flex-wrap gap-1">
-                                <button type="button" onclick="insertLink()" class="toolbar-btn" title="Insert Link">
-                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"></path></svg>
-                                </button>
-                                <button type="button" onclick="formatText('unlink')" class="toolbar-btn" title="Remove Link">
-                                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
-                                </button>
-
-                                <div class="border-l border-gray-400 mx-1"></div>
-
-                                <label for="contentImageInput" class="toolbar-btn cursor-pointer" title="Insert Image">
-                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
-                                    <input type="file" id="contentImageInput" accept="image/*" class="hidden" onchange="insertImage(this)">
-                                </label>
-                                
-                                <div class="border-l border-gray-400 mx-1"></div>
-
-                                <button type="button" onclick="formatText('undo')" class="toolbar-btn" title="Undo">
-                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h10a8 8 0 018 8v2M3 10l6 6m-6-6l6-6"></path></svg>
-                                </button>
-                                <button type="button" onclick="formatText('redo')" class="toolbar-btn" title="Redo">
-                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 10h-10a8 8 0 00-8 8v2m18-10l-6 6m6-6l-6-6"></path></svg>
-                                </button>
-                            </div>
-                        </div>
-
-                        <!-- Rich Text Editor -->
-                        <div id="editorContainer" class="border border-gray-300 border-t-0 rounded-b-lg">
-                            <div id="editor" contenteditable="true"
-                                class="w-full min-h-96 px-4 py-3 border-0 bg-white focus:ring-0 focus:outline-none"
-                                style="max-height: 500px; overflow-y: auto;"
-                                data-placeholder="Write your blog content here...">{!! old('content', $blog->content) !!}</div>
-                            <textarea id="content" name="content" class="hidden" required>{{ old('content', $blog->content) }}</textarea>
-                        </div>
-
-                        <!-- Editor Helper Text -->
-                        <div
-                            class="flex flex-col sm:flex-row sm:justify-between text-xs text-gray-500 mt-2 space-y-1 sm:space-y-0">
-                            <div class="flex items-center space-x-4">
-                                <span>📝 Rich text formatting enabled</span>
-                                <span>🖼️ Images supported</span>
-                                <span>🎬 Video embeds supported</span>
-                                <span>📊 Tables supported</span>
-                            </div>
-                            <div class="flex items-center space-x-2">
-                                <span>Word count: <span id="wordCount">0</span></span>
-                                <span>|</span>
-                                <span>Characters: <span id="charCount">0</span></span>
-                            </div>
-                        </div>
-
-                        @error('content')
-                            <p class="text-red-500 text-sm mt-1 flex items-center">
-                                <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                                </svg>
-                                {{ $message }}
-                            </p>
-                        @enderror
-                    </div>
-                </div>
             </div>
 
             <!-- Right Column - Sidebar (1/3 width) -->
@@ -708,170 +557,514 @@
     </style>
 @endpush
 
+ 
 @push('scripts')
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // ==========================================
-            // GLOBAL HELPER FUNCTIONS
-            // ==========================================
-            function showNotification(message, type = 'info') {
-                const notification = document.createElement('div');
-                notification.className = 'fixed top-4 right-4 z-50 max-w-md animate-slide-in';
-                const bgColor = { 'success': 'bg-green-500', 'error': 'bg-red-500', 'warning': 'bg-yellow-500', 'info': 'bg-blue-500' }[type] || 'bg-blue-500';
-                const icons = { 'success': '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>', 'error': '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>', 'warning': '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path>', 'info': '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>' };
-                notification.innerHTML = `<div class="${bgColor} text-white p-4 rounded-lg shadow-lg flex items-center"><svg class="w-5 h-5 mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">${icons[type]}</svg><span class="flex-1">${message}</span><button onclick="this.parentElement.parentElement.remove()" class="ml-4 text-white hover:text-gray-200 flex-shrink-0"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg></button></div>`;
-                document.body.appendChild(notification);
-                setTimeout(() => notification.remove(), 5000);
+<!-- CKEditor 5 CDN -->
+<script src="https://cdn.ckeditor.com/ckeditor5/40.2.0/classic/ckeditor.js"></script>
+
+<script>
+// Security & Utilities
+const csrfToken = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') || '';
+
+function sanitizeHtml(html) {
+    const temp = document.createElement('div');
+    temp.textContent = html;
+    return temp.innerHTML;
+}
+
+function showNotification(message, type = 'info') {
+    const notification = document.createElement('div');
+    notification.className = 'fixed top-4 right-4 z-50 max-w-md animate-slide-in';
+    
+    const bgColor = {
+        'success': 'bg-green-500',
+        'error': 'bg-red-500',
+        'warning': 'bg-yellow-500',
+        'info': 'bg-blue-500'
+    }[type] || 'bg-blue-500';
+    
+    const icons = {
+        'success': '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>',
+        'error': '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>',
+        'warning': '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path>',
+        'info': '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>'
+    };
+    
+    notification.innerHTML = `
+        <div class="${bgColor} text-white p-4 rounded-lg shadow-lg flex items-center">
+            <svg class="w-5 h-5 mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                ${icons[type]}
+            </svg>
+            <span class="flex-1">${sanitizeHtml(message)}</span>
+            <button onclick="this.parentElement.parentElement.remove()" class="ml-4 text-white hover:text-gray-200 flex-shrink-0">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                </svg>
+            </button>
+        </div>
+    `;
+    
+    document.body.appendChild(notification);
+    setTimeout(() => notification.remove(), 5000);
+}
+
+// Custom Upload Adapter for CKEditor 5
+class MyUploadAdapter {
+    constructor(loader) {
+        this.loader = loader;
+    }
+
+    upload() {
+        return this.loader.file
+            .then(file => new Promise((resolve, reject) => {
+                this._initRequest();
+                this._initListeners(resolve, reject, file);
+                this._sendRequest(file);
+            }));
+    }
+
+    abort() {
+        if (this.xhr) {
+            this.xhr.abort();
+        }
+    }
+
+    _initRequest() {
+        const xhr = this.xhr = new XMLHttpRequest();
+        xhr.open('POST', '{{ route("blog.upload-content-image") }}', true);
+        xhr.setRequestHeader('X-CSRF-TOKEN', csrfToken);
+        xhr.responseType = 'json';
+    }
+
+    _initListeners(resolve, reject, file) {
+        const xhr = this.xhr;
+        const loader = this.loader;
+        const genericErrorText = `Couldn't upload file: ${file.name}.`;
+
+        xhr.addEventListener('error', () => reject(genericErrorText));
+        xhr.addEventListener('abort', () => reject());
+        
+        xhr.addEventListener('load', () => {
+            const response = xhr.response;
+
+            if (!response || response.error) {
+                return reject(response && response.error ? response.error.message : genericErrorText);
             }
 
-            function showConfirmationModal(title, message, onConfirm) {
-                const modal = document.createElement('div');
-                modal.className = 'fixed inset-0 bg-gray-600 bg-opacity-50 flex items-center justify-center z-[9999]';
-                modal.innerHTML = `<div class="bg-white rounded-lg shadow-xl p-6 max-w-sm mx-auto animate-scale-in"><h3 class="text-lg font-semibold text-gray-900 mb-4">${title}</h3><p class="text-gray-700 mb-6">${message}</p><div class="flex justify-end space-x-3"><button id="cancelBtn" type="button" class="px-4 py-2 text-sm font-medium text-gray-700 bg-gray-100 rounded-lg hover:bg-gray-200 transition-colors">Cancel</button><button id="confirmBtn" type="button" class="px-4 py-2 text-sm font-medium text-white bg-red-600 rounded-lg hover:bg-red-700 transition-colors">Confirm</button></div></div>`;
-                document.body.appendChild(modal);
-                document.getElementById('cancelBtn').addEventListener('click', () => modal.remove());
-                document.getElementById('confirmBtn').addEventListener('click', () => { onConfirm(); modal.remove(); });
-            }
+            resolve({
+                default: response.url
+            });
+        });
 
-            function showPromptModal(title, message, onConfirm) {
-                let savedRange = null;
-                if (window.getSelection) { const sel = window.getSelection(); if (sel.getRangeAt && sel.rangeCount) { savedRange = sel.getRangeAt(0); } }
-                const modal = document.createElement('div');
-                modal.className = 'fixed inset-0 bg-gray-600 bg-opacity-50 flex items-center justify-center z-[9999]';
-                modal.innerHTML = `<div class="bg-white rounded-lg shadow-xl p-6 max-w-sm mx-auto" style="animation: scaleIn 0.2s ease-out;"><h3 class="text-lg font-semibold text-gray-900 mb-4">${title}</h3><p class="text-gray-700 mb-2">${message}</p><input id="promptInput" type="url" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 mb-6" placeholder="https://example.com"><div class="flex justify-end space-x-3"><button id="cancelBtn" type="button" class="px-4 py-2 text-sm font-medium text-gray-700 bg-gray-100 rounded-lg hover:bg-gray-200 transition-colors">Cancel</button><button id="confirmBtn" type="button" class="px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-700 transition-colors">Confirm</button></div></div>`;
-                document.body.appendChild(modal);
-                const inputField = document.getElementById('promptInput'); inputField.focus();
-                const closeModal = () => modal.remove();
-                const confirmAction = () => { if (savedRange && window.getSelection) { const sel = window.getSelection(); sel.removeAllRanges(); sel.addRange(savedRange); } onConfirm(inputField.value); closeModal(); };
-                inputField.addEventListener('keydown', (e) => { if (e.key === 'Enter') { e.preventDefault(); confirmAction(); } });
-                document.getElementById('cancelBtn').addEventListener('click', closeModal);
-                document.getElementById('confirmBtn').addEventListener('click', confirmAction);
-            }
-
-            // ==========================================
-            // RICH TEXT EDITOR FUNCTIONS
-            // ==========================================
-            window.formatText = (command, value = null) => { document.execCommand(command, false, value); editor.focus(); };
-            window.formatHeading = (tag) => { if (tag) formatText('formatBlock', tag); };
-            window.changeFontSize = (size) => { if (size) formatText('fontSize', size); };
-            window.insertLink = () => { showPromptModal('Insert Link', 'Enter URL:', (url) => { if (url) { if (!url.startsWith('http')) url = 'https://' + url; formatText('createLink', url); } }); };
-            window.toggleColorPicker = () => document.getElementById('colorPicker').classList.toggle('hidden');
-            window.toggleBgColorPicker = () => document.getElementById('bgColorPicker').classList.toggle('hidden');
-            window.setTextColor = (color) => { formatText('foreColor', color); document.getElementById('colorPicker').classList.add('hidden'); };
-            window.setBgColor = (color) => { formatText('hiliteColor', color); document.getElementById('bgColorPicker').classList.add('hidden'); };
-
-            window.insertImage = function(input) {
-                const file = input.files[0];
-                if (!file) return;
-                if (!file.type.startsWith('image/')) return showNotification('Please select an image file', 'error');
-                if (file.size > 5 * 1024 * 1024) return showNotification('Image must be less than 5MB', 'error');
-
-                const imageId = 'img_' + Date.now();
-                const tempSrc = URL.createObjectURL(file);
-                const imgHtml = `<p><img src="${tempSrc}" id="${imageId}" class="editor-image uploading" style="max-width: 100%; height: auto; opacity: 0.5;" alt="Uploading..."></p>`;
-                document.execCommand('insertHTML', false, imgHtml);
-
-                const formData = new FormData();
-                formData.append('image', file);
-                formData.append('_token', '{{ csrf_token() }}');
-
-                fetch('{{ route('blog.uploadContentImage') }}', { method: 'POST', body: formData })
-                    .then(res => res.json())
-                    .then(data => {
-                        const imgElement = document.getElementById(imageId);
-                        if (data.url && imgElement) {
-                            imgElement.src = data.url;
-                            imgElement.style.opacity = 1;
-                            imgElement.classList.remove('uploading');
-                            contentInput.value = editor.innerHTML;
-                        } else {
-                            imgElement.parentElement.remove();
-                            showNotification(data.error || 'Upload failed', 'error');
-                        }
-                    }).catch(() => {
-                        document.getElementById(imageId)?.parentElement.remove();
-                        showNotification('Upload failed', 'error');
-                    });
-                input.value = '';
-            };
-
-            let selectedImage = null; let currentToolbar = null;
-            function showImageToolbar(imgElement) {
-                if (currentToolbar) currentToolbar.remove();
-                const toolbar = document.createElement('div');
-                toolbar.id = 'imageToolbar';
-                toolbar.className = 'image-toolbar-popup';
-                toolbar.style.cssText = `position: fixed; background: white; border-radius: 12px; padding: 12px; box-shadow: 0 8px 24px rgba(0,0,0,0.25); display: flex; gap: 8px; z-index: 10000; animation: slideDown 0.3s ease;`;
-                toolbar.innerHTML = `<div style="display: flex; gap: 4px;"><button type="button" onclick="resizeImage('${imgElement.id}', 'small')" class="toolbar-btn">S</button><button type="button" onclick="resizeImage('${imgElement.id}', 'medium')" class="toolbar-btn">M</button><button type="button" onclick="resizeImage('${imgElement.id}', 'large')" class="toolbar-btn">L</button></div><div style="display: flex; gap: 4px;"><button type="button" onclick="alignImage('${imgElement.id}', 'left')" class="toolbar-btn">Left</button><button type="button" onclick="alignImage('${imgElement.id}', 'center')" class="toolbar-btn">Center</button><button type="button" onclick="alignImage('${imgElement.id}', 'right')" class="toolbar-btn">Right</button></div><button type="button" onclick="deleteImage('${imgElement.id}')" class="toolbar-btn" style="color:red;">Delete</button>`;
-                document.body.appendChild(toolbar);
-                currentToolbar = toolbar;
-                const rect = imgElement.getBoundingClientRect();
-                let top = rect.top - toolbar.offsetHeight - 10;
-                let left = rect.left + rect.width / 2 - toolbar.offsetWidth / 2;
-                if (top < 10) top = rect.bottom + 10;
-                if (left < 10) left = 10;
-                if (left + toolbar.offsetWidth > window.innerWidth - 10) left = window.innerWidth - toolbar.offsetWidth - 10;
-                toolbar.style.top = `${top}px`;
-                toolbar.style.left = `${left}px`;
-            }
-            window.resizeImage = (id, size) => { const img = document.getElementById(id); if(img) { img.style.width = {small:'25%',medium:'50%',large:'100%'}[size]; contentInput.value = editor.innerHTML; setTimeout(() => showImageToolbar(img), 50); }};
-            window.alignImage = (id, align) => { const img = document.getElementById(id); if(img) { const p = img.closest('p'); if(p) p.style.textAlign = align; contentInput.value = editor.innerHTML; }};
-            window.deleteImage = (id) => { showConfirmationModal('Delete Image?', 'Are you sure?', () => { const img = document.getElementById(id); if(img) { img.closest('p')?.remove(); if(currentToolbar) currentToolbar.remove(); contentInput.value = editor.innerHTML; } }); };
-            document.addEventListener('click', (e) => { if(!e.target.closest('.editor-image') && !e.target.closest('#imageToolbar')) { if(currentToolbar) currentToolbar.remove(); document.querySelectorAll('.editor-image.selected').forEach(el => el.classList.remove('selected')); }});
-
-            // ==========================================
-            // INITIALIZATION
-            // ==========================================
-            const form = document.getElementById('blogForm');
-            const fileInput = document.getElementById('imageInput');
-            const imagePreview = document.getElementById('imagePreview');
-            const titleInput = document.getElementById('title');
-            const slugInput = document.getElementById('slug');
-            const tagsInput = document.getElementById('tagsInput');
-            const tagsHidden = document.getElementById('tags');
-            const tagContainer = document.getElementById('tagContainer');
-            const editor = document.getElementById('editor');
-            const contentInput = document.getElementById('content');
-
-            // Image Preview
-            fileInput.addEventListener('change', e => { if(e.target.files[0]) { const reader = new FileReader(); reader.onload = e => imagePreview.src = e.target.result; reader.readAsDataURL(e.target.files[0]); }});
-
-            // Slug generation
-            titleInput.addEventListener('input', () => { slugInput.value = titleInput.value.toLowerCase().replace(/[^a-z0-9\s-]/g, '').replace(/\s+/g, '-').slice(0, 200); });
-
-            // Tags
-            let tags = tagsHidden.value ? tagsHidden.value.split(',').filter(Boolean) : [];
-            const updateTagDisplay = () => { tagContainer.innerHTML = tags.map(tag => `<div class="tag-item"><span>${tag}</span><span class="tag-remove" onclick="removeTag('${tag}')">&times;</span></div>`).join(''); tagsHidden.value = tags.join(','); };
-            window.removeTag = (tag) => { tags = tags.filter(t => t !== tag); updateTagDisplay(); };
-            tagsInput.addEventListener('keydown', e => { if(e.key === 'Enter' || e.key === ',') { e.preventDefault(); if(tagsInput.value.trim() && !tags.includes(tagsInput.value.trim())) { tags.push(tagsInput.value.trim()); } tagsInput.value = ''; updateTagDisplay(); }});
-            updateTagDisplay();
-
-            // Editor sync and word count
-            const updateWordCount = () => {
-                const text = editor.innerText.trim();
-                const wordCount = text ? text.split(/\s+/).length : 0;
-                document.getElementById('wordCount').textContent = wordCount;
-                document.getElementById('charCount').textContent = text.length;
-                document.getElementById('word_count_hidden').value = wordCount;
-                document.getElementById('reading_time_hidden').value = Math.ceil(wordCount / 200) || 1;
-            };
-            editor.addEventListener('input', () => { contentInput.value = editor.innerHTML; updateWordCount(); });
-            if (contentInput.value) { editor.innerHTML = contentInput.value; }
-            updateWordCount();
-
-            // Editor image click
-            editor.addEventListener('click', (e) => {
-                if(e.target.tagName === 'IMG' && e.target.classList.contains('editor-image')){
-                    e.stopPropagation();
-                    document.querySelectorAll('.editor-image.selected').forEach(el => el.classList.remove('selected'));
-                    e.target.classList.add('selected');
-                    showImageToolbar(e.target);
+        if (xhr.upload) {
+            xhr.upload.addEventListener('progress', evt => {
+                if (evt.lengthComputable) {
+                    loader.uploadTotal = evt.total;
+                    loader.uploaded = evt.loaded;
                 }
             });
+        }
+    }
 
-            // Form submission
-            form.addEventListener('submit', () => { contentInput.value = editor.innerHTML; });
+    _sendRequest(file) {
+        const data = new FormData();
+        data.append('upload', file);
+        this.xhr.send(data);
+    }
+}
+
+function MyCustomUploadAdapterPlugin(editor) {
+    editor.plugins.get('FileRepository').createUploadAdapter = (loader) => {
+        return new MyUploadAdapter(loader);
+    };
+}
+
+window.setAuthorType = function(memberId = null) {
+    const authorIdHidden = document.querySelector('input[name="author_id"]');
+    const authorTypeHidden = document.querySelector('input[name="author_type"]');
+    
+    const modelClass = '{{ addslashes(config("admin-panel.user_model", \Sndpbag\AdminPanel\Models\User::class)) }}';
+    
+    if (authorIdHidden && authorTypeHidden) {
+        if (memberId) {
+            authorIdHidden.value = memberId;
+            authorTypeHidden.value = modelClass;
+        } else {
+            authorIdHidden.value = '{{ auth()->id() }}';
+            authorTypeHidden.value = modelClass;
+        }
+    }
+};
+
+// DOM Ready
+document.addEventListener('DOMContentLoaded', function() {
+    // Initialize CKEditor 5 with Custom Upload Adapter
+    ClassicEditor
+        .create(document.querySelector('#editor'), {
+            extraPlugins: [MyCustomUploadAdapterPlugin],
+            toolbar: {
+                items: [
+                    'heading', '|',
+                    'bold', 'italic', 'underline', 'strikethrough', '|',
+                    'link', 'uploadImage', 'insertTable', 'mediaEmbed', 'blockQuote', 'codeBlock', '|',
+                    'bulletedList', 'numberedList', 'outdent', 'indent', '|',
+                    'alignment', 'fontSize', 'fontColor', 'fontBackgroundColor', '|',
+                    'horizontalLine', 'removeFormat', '|',
+                    'undo', 'redo'
+                ]
+            },
+            image: {
+                toolbar: [
+                    'imageStyle:inline',
+                    'imageStyle:block',
+                    'imageStyle:side',
+                    '|',
+                    'toggleImageCaption',
+                    'imageTextAlternative',
+                    '|',
+                    'linkImage'
+                ],
+                upload: {
+                    types: ['jpeg', 'png', 'gif', 'bmp', 'webp', 'tiff', 'jpg']
+                }
+            },
+            table: {
+                contentToolbar: ['tableColumn', 'tableRow', 'mergeTableCells', 'tableProperties', 'tableCellProperties']
+            },
+            heading: {
+                options: [
+                    { model: 'paragraph', title: 'Paragraph', class: 'ck-heading_paragraph' },
+                    { model: 'heading1', view: 'h1', title: 'Heading 1', class: 'ck-heading_heading1' },
+                    { model: 'heading2', view: 'h2', title: 'Heading 2', class: 'ck-heading_heading2' },
+                    { model: 'heading3', view: 'h3', title: 'Heading 3', class: 'ck-heading_heading3' },
+                    { model: 'heading4', view: 'h4', title: 'Heading 4', class: 'ck-heading_heading4' }
+                ]
+            },
+            fontSize: {
+                options: [9, 11, 13, 'default', 17, 19, 21]
+            },
+            fontColor: {
+                colors: [
+                    { color: 'hsl(0, 0%, 0%)', label: 'Black' },
+                    { color: 'hsl(0, 0%, 30%)', label: 'Dim grey' },
+                    { color: 'hsl(0, 0%, 60%)', label: 'Grey' },
+                    { color: 'hsl(0, 0%, 90%)', label: 'Light grey' },
+                    { color: 'hsl(0, 0%, 100%)', label: 'White', hasBorder: true },
+                    { color: 'hsl(0, 75%, 60%)', label: 'Red' },
+                    { color: 'hsl(30, 75%, 60%)', label: 'Orange' },
+                    { color: 'hsl(60, 75%, 60%)', label: 'Yellow' },
+                    { color: 'hsl(90, 75%, 60%)', label: 'Light green' },
+                    { color: 'hsl(120, 75%, 60%)', label: 'Green' },
+                    { color: 'hsl(150, 75%, 60%)', label: 'Aquamarine' },
+                    { color: 'hsl(180, 75%, 60%)', label: 'Turquoise' },
+                    { color: 'hsl(210, 75%, 60%)', label: 'Light blue' },
+                    { color: 'hsl(240, 75%, 60%)', label: 'Blue' },
+                    { color: 'hsl(270, 75%, 60%)', label: 'Purple' }
+                ]
+            },
+            fontBackgroundColor: {
+                colors: [
+                    { color: 'hsl(0, 75%, 60%)', label: 'Red' },
+                    { color: 'hsl(30, 75%, 60%)', label: 'Orange' },
+                    { color: 'hsl(60, 75%, 60%)', label: 'Yellow' },
+                    { color: 'hsl(90, 75%, 60%)', label: 'Light green' },
+                    { color: 'hsl(120, 75%, 60%)', label: 'Green' }
+                ]
+            },
+            mediaEmbed: {
+                previewsInData: true
+            },
+            link: {
+                decorators: {
+                    openInNewTab: {
+                        mode: 'manual',
+                        label: 'Open in a new tab',
+                        attributes: {
+                            target: '_blank',
+                            rel: 'noopener noreferrer'
+                        }
+                    }
+                }
+            }
+        })
+        .then(editor => {
+            window.editorInstance = editor;
+            
+            console.log('✅ CKEditor 5 initialized successfully!');
+            
+            // Update hidden textarea on change
+            editor.model.document.on('change:data', () => {
+                const contentInput = document.getElementById('content');
+                if (contentInput) {
+                    contentInput.value = editor.getData();
+                }
+                updateWordCount();
+            });
+            
+            // Load old content if exists
+            const oldContent = document.getElementById('content').value;
+            if (oldContent) {
+                editor.setData(oldContent);
+            }
+            
+            showNotification('Editor ready! You can now edit your blog.', 'success');
+        })
+        .catch(error => {
+            console.error('CKEditor initialization error:', error);
+            showNotification('Failed to initialize editor: ' + error.message, 'error');
         });
-    </script>
+    
+    // Word count update function
+    function updateWordCount() {
+        if (!window.editorInstance) return;
+        
+        const data = window.editorInstance.getData();
+        const text = data.replace(/<[^>]*>/g, ' ').replace(/\s+/g, ' ').trim();
+        const words = text.split(/\s+/).filter(w => w.length > 0);
+        const wordCount = words.length;
+        const charCount = text.length;
+        const readingTime = Math.ceil(wordCount / 200) || 1;
+        
+        const wordCountEl = document.getElementById('wordCount');
+        const charCountEl = document.getElementById('charCount');
+        const wordCountHidden = document.getElementById('word_count_hidden');
+        const readingTimeHidden = document.getElementById('reading_time_hidden');
+        
+        if (wordCountEl) wordCountEl.textContent = wordCount;
+        if (charCountEl) charCountEl.textContent = charCount;
+        if (wordCountHidden) wordCountHidden.value = wordCount;
+        if (readingTimeHidden) readingTimeHidden.value = readingTime;
+    }
+    
+    // Get elements
+    const form = document.getElementById('blogForm');
+    const fileInput = document.getElementById('imageInput');
+    const imagePreview = document.getElementById('imagePreview');
+    const titleInput = document.getElementById('title');
+    const slugInput = document.getElementById('slug');
+    const excerptInput = document.getElementById('excerpt');
+    const excerptCounter = document.getElementById('excerptCounter');
+    const metaTitleInput = document.getElementById('meta_title');
+    const metaTitleCounter = document.getElementById('metaTitleCounter');
+    const metaDescInput = document.getElementById('meta_description');
+    const metaDescCounter = document.getElementById('metaDescCounter');
+    const tagsInput = document.getElementById('tagsInput');
+    const tagsHidden = document.getElementById('tags');
+    const tagContainer = document.getElementById('tagContainer');
+    
+    // Featured Image Handler
+    function handleImageSelect(file) {
+        if (!file) return;
+        
+        if (!file.type.startsWith('image/')) {
+            showNotification('Please select an image file', 'error');
+            if (fileInput) fileInput.value = '';
+            return;
+        }
+        
+        if (file.size > 5 * 1024 * 1024) {
+            showNotification('Image must be less than 5MB', 'error');
+            if (fileInput) fileInput.value = '';
+            return;
+        }
+        
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            if (imagePreview) {
+                imagePreview.src = e.target.result;
+                showNotification('Featured image updated!', 'success');
+            }
+        };
+        reader.onerror = () => showNotification('Failed to read file', 'error');
+        reader.readAsDataURL(file);
+    }
+    
+    if (fileInput) {
+        fileInput.addEventListener('change', function(e) {
+            if (e.target.files.length > 0) {
+                handleImageSelect(e.target.files[0]);
+            }
+        });
+    }
+    
+    // Tags Handler
+    let tags = [];
+    
+    if (tagsHidden && tagsHidden.value) {
+        tags = tagsHidden.value.split(',').map(t => t.trim()).filter(t => t);
+        updateTagDisplay();
+    }
+    
+    function addTag(text) {
+        const trimmed = text.trim();
+        const cleaned = trimmed.replace(/[^a-zA-Z0-9\s-]/g, '');
+        
+        if (cleaned && !tags.includes(cleaned)) {
+            if (tags.length >= 10) {
+                showNotification('Maximum 10 tags allowed', 'warning');
+                return;
+            }
+            tags.push(cleaned);
+            updateTagDisplay();
+            if (tagsHidden) tagsHidden.value = tags.join(',');
+        }
+    }
+    
+    function removeTag(text) {
+        tags = tags.filter(t => t !== text);
+        updateTagDisplay();
+        if (tagsHidden) tagsHidden.value = tags.join(',');
+    }
+    
+    function updateTagDisplay() {
+        if (!tagContainer) return;
+        tagContainer.innerHTML = '';
+        tags.forEach(tag => {
+            const el = document.createElement('div');
+            el.className = 'tag-item';
+            el.innerHTML = `<span>${sanitizeHtml(tag)}</span><span class="tag-remove">&times;</span>`;
+            tagContainer.appendChild(el);
+            
+            el.querySelector('.tag-remove').addEventListener('click', () => removeTag(tag));
+        });
+    }
+    
+    window.removeTag = removeTag;
+    
+    if (tagsInput) {
+        tagsInput.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter' || e.key === ',') {
+                e.preventDefault();
+                if (this.value.trim()) {
+                    addTag(this.value);
+                    this.value = '';
+                }
+            }
+        });
+        
+        tagsInput.addEventListener('blur', function() {
+            if (this.value.trim()) {
+                addTag(this.value);
+                this.value = '';
+            }
+        });
+    }
+    
+    // Slug Auto-Generate
+    if (titleInput && slugInput) {
+        titleInput.addEventListener('input', function() {
+            const slug = this.value.toLowerCase()
+                .replace(/[^a-z0-9\s-]/g, '')
+                .replace(/\s+/g, '-')
+                .replace(/-+/g, '-')
+                .trim();
+            slugInput.value = slug;
+        });
+    }
+    
+    // Counters
+    function updateCounters() {
+        if (excerptInput && excerptCounter) {
+            const len = excerptInput.value.length;
+            excerptCounter.textContent = `${len}/500 characters`;
+            excerptCounter.className = len > 500 ? 'text-red-500' : 'text-gray-400';
+        }
+        
+        if (metaTitleInput && metaTitleCounter) {
+            const len = metaTitleInput.value.length;
+            metaTitleCounter.textContent = `${len}/60 chars`;
+            metaTitleCounter.className = len > 60 ? 'text-red-500' : 'text-gray-400';
+        }
+        
+        if (metaDescInput && metaDescCounter) {
+            const len = metaDescInput.value.length;
+            metaDescCounter.textContent = `${len}/160 chars`;
+            metaDescCounter.className = len > 160 ? 'text-red-500' : 'text-gray-400';
+        }
+    }
+    
+    window.updateCounters = updateCounters;
+    
+    [excerptInput, metaTitleInput, metaDescInput].forEach(input => {
+        if (input) input.addEventListener('input', () => {
+            updateCounters();
+        });
+    });
+    
+    updateCounters();
+    
+    // Form Submission
+    let isSubmitting = false;
+    
+    if (form) {
+        form.addEventListener('submit', function(e) {
+            if (isSubmitting) {
+                e.preventDefault();
+                return;
+            }
+            
+            // Sync CKEditor content
+            if (window.editorInstance) {
+                const contentInput = document.getElementById('content');
+                if (contentInput) {
+                    contentInput.value = window.editorInstance.getData();
+                }
+            }
+            
+            if (titleInput && !titleInput.value.trim()) {
+                e.preventDefault();
+                showNotification('Enter blog title', 'error');
+                titleInput.focus();
+                return;
+            }
+            
+            if (slugInput && !slugInput.value.trim()) {
+                e.preventDefault();
+                showNotification('Enter URL slug', 'error');
+                slugInput.focus();
+                return;
+            }
+            
+            const contentInput = document.getElementById('content');
+            if (contentInput && !contentInput.value.trim()) {
+                e.preventDefault();
+                showNotification('Enter blog content', 'error');
+                if (window.editorInstance) {
+                    window.editorInstance.focus();
+                }
+                return;
+            }
+            
+            isSubmitting = true;
+            
+            form.querySelectorAll('button[type="submit"]').forEach(btn => {
+                btn.disabled = true;
+                btn.innerHTML = `
+                    <svg class="w-4 h-4 mr-2 animate-spin inline" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                    </svg>
+                    Updating...
+                `;
+            });
+        });
+    }
+    
+    // Keyboard Shortcuts
+    document.addEventListener('keydown', function(e) {
+        if ((e.ctrlKey || e.metaKey) && e.key === 's') {
+            e.preventDefault();
+            if (form && !isSubmitting) {
+                const draftButton = form.querySelector('button[name="action"][value="draft"]');
+                if (draftButton) draftButton.click();
+            }
+        }
+    });
+    
+    // Initial focus
+    if (titleInput) titleInput.focus();
+    
+    console.log('✅ Blog Edit Form with CKEditor 5 Ready!');
+});
+</script>
 @endpush
-

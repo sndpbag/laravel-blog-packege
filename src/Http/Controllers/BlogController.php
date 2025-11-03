@@ -86,95 +86,7 @@ class BlogController extends Controller
         return view('blog::dashboard.blogs.create', compact('categories', 'members'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    //   public function store(Request $request)
-    // {
-    //     // Validation
-    //     $validated = $request->validate([
-    //         'title' => 'required|string|max:255',
-    //         'slug' => 'required|string|max:255|unique:blogs,slug',
-    //         'image' => 'required|image|mimes:jpeg,png,jpg,gif,webp|max:5120',
-    //         'published_date' => 'nullable|date',
-    //         'is_featured' => 'nullable|boolean',
-    //         'excerpt' => 'nullable|string|max:500',
-    //         'content' => 'required|string',
-    //         'category_id' => 'nullable|exists:categories,id',
-    //         'member_id' => 'nullable|exists:users,id',
-    //         'author_id' => 'nullable|exists:users,id',
-    //         'meta_title' => 'nullable|string|max:60',
-    //         'meta_description' => 'nullable|string|max:160',
-    //         'likes' => 'nullable|integer|min:0',
-    //         'tags' => 'nullable|string',
-    //         'status' => 'nullable|boolean',
-    //         'word_count' => 'nullable|integer',
-    //         'reading_time' => 'nullable|integer',
-    //     ]);
-
-    //     try {
-    //         // Handle image upload
-    //         if ($request->hasFile('image')) {
-    //             $image = $request->file('image');
-    //             $imageName = time() . '_' . uniqid() . '.' . $image->getClientOriginalExtension();
-    //             $image->move(public_path('uploads/blogs'), $imageName);
-    //             $validated['image'] = 'uploads/blogs/' . $imageName;
-    //         }
-
-    //         // Set defaults
-    //         $validated['author_type'] = $request->input('author_type', 'member');
-    //         $validated['views'] = 0;
-    //         $validated['likes'] = $request->input('likes', 0);
-    //         $validated['status'] = $request->has('status') ? 1 : 0;
-    //         $validated['is_featured'] = $request->has('is_featured') ? 1 : 0;
-
-    //         // Set author_id to current user if not provided
-    //         if (empty($validated['author_id'])) {
-    //             $validated['author_id'] = auth()->id();
-    //         }
-
-    //         // Set published_date to today if not provided
-    //         if (empty($validated['published_date'])) {
-    //             $validated['published_date'] = now()->format('Y-m-d');
-    //         }
-
-    //         // Use excerpt if meta_description is empty
-    //         if (empty($validated['meta_description']) && !empty($validated['excerpt'])) {
-    //             $validated['meta_description'] = $validated['excerpt'];
-    //         }
-
-    //         // Use title if meta_title is empty
-    //         if (empty($validated['meta_title'])) {
-    //             $validated['meta_title'] = $validated['title'];
-    //         }
-
-    //         // Calculate word_count if not provided
-    //         if (empty($validated['word_count'])) {
-    //             $validated['word_count'] = str_word_count(strip_tags($validated['content']));
-    //         }
-
-    //         // Calculate reading_time if not provided
-    //         if (empty($validated['reading_time'])) {
-    //             $validated['reading_time'] = max(1, ceil($validated['word_count'] / 200));
-    //         }
-
-    //         // Create blog post
-    //         Blog::create($validated);
-
-    //         return redirect()->route('blog.index')
-    //             ->with('success', 'Blog post created successfully!');
-
-    //     } catch (\Exception $e) {
-    //         // Delete uploaded image if blog creation fails
-    //         if (isset($validated['image']) && file_exists(public_path($validated['image']))) {
-    //             unlink(public_path($validated['image']));
-    //         }
-
-    //         return back()
-    //             ->withInput()
-    //             ->with('error', 'Failed to create blog post: ' . $e->getMessage());
-    //     }
-    // }
+ 
 
     public function store(Request $request): RedirectResponse
     {
@@ -451,54 +363,154 @@ class BlogController extends Controller
     /**
      * Update the specified resource in storage.
      */
+    // public function update(Request $request, Blog $blog): RedirectResponse
+    // {
+    //     $validated = $request->validate([
+    //         'title' => 'required|string|max:255',
+    //         'slug' => ['required', 'string', 'max:255', Rule::unique('blogs')->ignore($blog->id)],
+    //         'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:5120', // Nullable on update
+    //         'published_date' => 'nullable|date',
+    //         'is_featured' => 'nullable|boolean',
+    //         'excerpt' => 'nullable|string|max:500',
+    //         'content' => 'required|string',
+    //         'category_id' => 'nullable|exists:blog_categories,id',
+    //         'member_id' => 'nullable|exists:users,id',
+    //         'meta_title' => 'nullable|string|max:60',
+    //         'meta_description' => 'nullable|string|max:160',
+    //         'tags' => 'nullable|string',
+    //     ]);
+
+    //     try {
+    //         $validated['status'] = $request->input('action') === 'publish' ? 'published' : 'draft';
+    //         $validated['is_featured'] = $request->has('is_featured');
+
+    //         if ($request->hasFile('image')) {
+    //             // Delete old image
+    //             if ($blog->image && Storage::disk('public')->exists($blog->image)) {
+    //                 Storage::disk('public')->delete($blog->image);
+    //             }
+    //             // Store new image
+    //             $path = $request->file('image')->store('blog_images', 'public');
+    //             $validated['image'] = $path;
+    //         }
+
+    //         $validated['author_id'] = $request->filled('member_id') ? $request->input('member_id') : auth()->id();
+    //         $validated['author_type'] = User::class; // delete
+    //         if (empty($validated['meta_title'])) {
+    //             $validated['meta_title'] = $validated['title'];
+    //         }
+    //         if (empty($validated['meta_description'])) {
+    //             $validated['meta_description'] = Str::limit(strip_tags($validated['excerpt'] ?? ''), 160);
+    //         }
+
+    //         $blog->update($validated);
+
+    //         return redirect()->route('blog.index')->with('success', 'Blog post updated successfully!');
+    //     } catch (\Exception $e) {
+    //         Log::error('Blog update failed: ' . $e->getMessage());
+    //         return back()->withInput()->with('error', 'Failed to update blog post: ' . $e->getMessage());
+    //     }
+    // }
+
+
     public function update(Request $request, Blog $blog): RedirectResponse
-    {
-        $validated = $request->validate([
-            'title' => 'required|string|max:255',
-            'slug' => ['required', 'string', 'max:255', Rule::unique('blogs')->ignore($blog->id)],
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:5120', // Nullable on update
-            'published_date' => 'nullable|date',
-            'is_featured' => 'nullable|boolean',
-            'excerpt' => 'nullable|string|max:500',
-            'content' => 'required|string',
-            'category_id' => 'nullable|exists:blog_categories,id',
-            'member_id' => 'nullable|exists:users,id',
-            'meta_title' => 'nullable|string|max:60',
-            'meta_description' => 'nullable|string|max:160',
-            'tags' => 'nullable|string',
-        ]);
+{
+    $validated = $request->validate([
+        'title' => 'required|string|max:255',
+        'slug' => ['required', 'string', 'max:255', Rule::unique('blogs')->ignore($blog->id)],
+        'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:5120',
+        'published_date' => 'nullable|date',
+        'is_featured' => 'nullable|boolean',
+        'excerpt' => 'nullable|string|max:500',
+        'content' => 'required|string',
+        'category_id' => 'nullable|exists:blog_categories,id',
+        'member_id' => 'nullable|exists:users,id',
+        'meta_title' => 'nullable|string|max:60',
+        'meta_description' => 'nullable|string|max:160',
+        'tags' => 'nullable|string',
+        'word_count' => 'nullable|integer',
+        'reading_time' => 'nullable|integer',
+    ], [
+        'title.required' => 'Blog title is required',
+        'title.max' => 'Blog title cannot exceed 255 characters',
+        'slug.required' => 'URL slug is required',
+        'slug.unique' => 'This slug is already taken',
+        'image.image' => 'File must be an image',
+        'image.mimes' => 'Image must be jpeg, png, jpg, gif, or webp',
+        'image.max' => 'Image size cannot exceed 5MB',
+        'excerpt.max' => 'Excerpt cannot exceed 500 characters',
+        'content.required' => 'Blog content is required',
+        'category_id.exists' => 'Selected category does not exist',
+        'member_id.exists' => 'Selected member does not exist',
+        'meta_title.max' => 'Meta title cannot exceed 60 characters',
+        'meta_description.max' => 'Meta description cannot exceed 160 characters',
+    ]);
 
-        try {
-            $validated['status'] = $request->input('action') === 'publish' ? 'published' : 'draft';
-            $validated['is_featured'] = $request->has('is_featured');
-
-            if ($request->hasFile('image')) {
-                // Delete old image
-                if ($blog->image && Storage::disk('public')->exists($blog->image)) {
-                    Storage::disk('public')->delete($blog->image);
-                }
-                // Store new image
-                $path = $request->file('image')->store('blog_images', 'public');
-                $validated['image'] = $path;
-            }
-
-            $validated['author_id'] = $request->filled('member_id') ? $request->input('member_id') : auth()->id();
-            $validated['author_type'] = User::class; // delete
-            if (empty($validated['meta_title'])) {
-                $validated['meta_title'] = $validated['title'];
-            }
-            if (empty($validated['meta_description'])) {
-                $validated['meta_description'] = Str::limit(strip_tags($validated['excerpt'] ?? ''), 160);
-            }
-
-            $blog->update($validated);
-
-            return redirect()->route('blog.index')->with('success', 'Blog post updated successfully!');
-        } catch (\Exception $e) {
-            Log::error('Blog update failed: ' . $e->getMessage());
-            return back()->withInput()->with('error', 'Failed to update blog post: ' . $e->getMessage());
+    try {
+        // Determine status
+        if ($request->input('action') === 'draft') {
+            $validated['status'] = 'draft';
+        } else {
+            $validated['status'] = 'published';
         }
+        
+        $validated['is_featured'] = $request->has('is_featured');
+
+        // Handle image upload
+        if ($request->hasFile('image')) {
+            // Delete old image
+            if ($blog->image && Storage::disk('public')->exists($blog->image)) {
+                Storage::disk('public')->delete($blog->image);
+            }
+            // Store new image
+            $path = $request->file('image')->store('blog_images', 'public');
+            $validated['image'] = $path;
+        }
+
+        // Set author
+        $validated['author_id'] = $request->filled('member_id') ? 
+            $request->input('member_id') : 
+            auth()->id();
+        
+        $validated['author_type'] = config('admin-panel.user_model', \Sndpbag\AdminPanel\Models\User::class);
+
+        // SEO defaults
+        if (empty($validated['meta_title'])) {
+            $validated['meta_title'] = $validated['title'];
+        }
+        if (empty($validated['meta_description'])) {
+            $validated['meta_description'] = Str::limit(strip_tags($validated['excerpt'] ?? ''), 160);
+        }
+
+        // Update published date if status changed to published
+        if ($validated['status'] === 'published' && $blog->status !== 'published' && empty($validated['published_date'])) {
+            $validated['published_date'] = now();
+        }
+
+        // Calculate reading time if not provided
+        if (empty($validated['reading_time'])) {
+            $wordCount = $validated['word_count'] ?? str_word_count(strip_tags($validated['content']));
+            $validated['reading_time'] = max(1, ceil($wordCount / 200));
+        }
+
+        $blog->update($validated);
+
+        return redirect()->route('blog.index')
+            ->with('success', 'Blog post updated successfully!');
+            
+    } catch (\Exception $e) {
+        Log::error('Blog update failed: ' . $e->getMessage());
+        
+        // If a new image was uploaded but update failed, delete it
+        if (isset($validated['image']) && $validated['image'] !== $blog->image && Storage::disk('public')->exists($validated['image'])) {
+            Storage::disk('public')->delete($validated['image']);
+        }
+        
+        return back()
+            ->withInput()
+            ->with('error', 'Failed to update blog post: ' . $e->getMessage());
     }
+}
 
 
 
@@ -565,23 +577,49 @@ class BlogController extends Controller
     /**
      * Upload image from Rich Text Editor.
      */
-    public function uploadContentImage(Request $request)
-    {
-        $request->validate([
-            'image' => 'required|image|mimes:jpeg,png,jpg,gif,webp|max:5120',
-        ]);
+    // public function uploadContentImage(Request $request)
+    // {
+    //     $request->validate([
+    //         'image' => 'required|image|mimes:jpeg,png,jpg,gif,webp|max:5120',
+    //     ]);
 
-        if ($request->hasFile('image')) {
-            $path = $request->file('image')->store('blog_content_images', 'public');
+    //     if ($request->hasFile('image')) {
+    //         $path = $request->file('image')->store('blog_content_images', 'public');
 
-            // Generate a full URL for the image
+    //         // Generate a full URL for the image
+    //         $url = asset('storage/' . $path);
+
+    //         return response()->json(['url' => $url]);
+    //     }
+
+    //     return response()->json(['error' => 'Image upload failed.'], 400);
+    // }
+
+
+ public function uploadContentImage(Request $request)
+{
+    $request->validate([
+        'upload' => 'required|image|mimes:jpeg,png,jpg,gif,webp|max:5120',
+    ]);
+
+    try {
+        if ($request->hasFile('upload')) {
+            $file = $request->file('upload');
+            $filename = time() . '_' . $file->getClientOriginalName();
+            $path = $file->storeAs('blog_content_images', $filename, 'public');
             $url = asset('storage/' . $path);
-
-            return response()->json(['url' => $url]);
+            
+            return response()->json([
+                'url' => $url
+            ]);
         }
-
-        return response()->json(['error' => 'Image upload failed.'], 400);
+        
+        return response()->json(['error' => ['message' => 'No file uploaded']], 400);
+    } catch (\Exception $e) {
+        Log::error('Image upload failed: ' . $e->getMessage());
+        return response()->json(['error' => ['message' => $e->getMessage()]], 500);
     }
+}
 
 
 
