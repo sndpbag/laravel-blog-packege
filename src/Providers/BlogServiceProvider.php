@@ -19,6 +19,10 @@ class BlogServiceProvider extends ServiceProvider
         $this->publishes([
             __DIR__.'/../../resources/assets' => public_path('vendor/blog'),
         ], 'blog-assets');
+
+        $this->publishes([
+        __DIR__.'/../../resources/views' => resource_path('views/vendor/blog'),
+    ], 'blog-views');
     }
 
     public function register()
