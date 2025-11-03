@@ -29,17 +29,33 @@ This package is packed with modern features to make your blogging experience fas
       - AJAX-powered like system for real-time interaction.
       - A nested comment and reply system for user discussions.
 
-## 🛠️ Installation
-
+ 
 Follow these steps to get started:
 
-**1. Install Package via Composer:**
+```markdown
+## 🛠️ Installation
 
-Run the following command in your terminal:
+... (composer require steps) ...
 
-```bash
-composer require sndpbag/blog
-```
+**2. Publish Assets & Views:**
+
+This package uses tags to let you publish only what you need.
+
+* **Publish Config File:** (এটি `config/blog.php` ফাইলটি পাবলিশ করবে)
+    ```bash
+    php artisan vendor:publish --tag="blog-config"
+    ```
+
+* **Publish Views (Recommended):** (এটি `resources/views/vendor/blog` ফোল্ডারে ভিউ ফাইলগুলো পাবলিশ করবে)
+    **এটি খুবই গুরুত্বপূর্ণ** যাতে আপনি আপনার ওয়েবসাইটের `layouts/main.blade.php` ফাইলের সাথে ডিজাইন মেলাতে পারেন।
+    ```bash
+    php artisan vendor:publish --tag="blog-views"
+    ```
+
+* **(Optional) Publish Assets:** (যদি আপনার কোনো CSS/JS ফাইল থাকে)
+    ```bash
+    php artisan vendor:publish --tag="blog-assets"
+    ```
 
 **2. Publish Assets:**
 
@@ -88,6 +104,12 @@ To add a "Blog" link to your admin panel's sidebar:
             'route' => 'blog-categories.index',
             'icon' => '<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5a2 2 0 012 2v14a2 2 0 01-2 2H7a2 2 0 01-2-2V5a2 2 0 012-2z"></path></svg>',
             'active_on' => 'blog-categories.*'
+        ],
+        [
+            'title' => 'Comments',
+            'route' => 'comments.index', // কমেন্ট রুট
+            'icon' => '<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path></svg>',
+            'active_on' => 'comments.*' // 'comments' রুটে অ্যাক্টিভ থাকবে
         ],
     ]
     ```
